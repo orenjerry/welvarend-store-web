@@ -1,0 +1,20 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* * {
+    border: 1px solid red;
+} */
+
+footer li a {
+    color: #8a8a8a;
+}
+
+a {
+    color: #c2c6cd;
+    transition: color 0.3s ease;
+}
+
+a:hover {
+    color: #f9fafb;
+}
