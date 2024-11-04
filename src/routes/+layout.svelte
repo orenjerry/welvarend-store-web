@@ -1,13 +1,25 @@
 <script lang="ts">
 	import '../app.css';
 	import { dark_mode } from '$lib/color';
+	import { onMount } from 'svelte';
+
 	let { children } = $props();
+	let scrollY = $state(0);
+	onMount(() => {
+		const handleScroll = () => {
+			scrollY = window.scrollY;
+		};
+		window.addEventListener('scroll', handleScroll);
+		return () => {
+			window.removeEventListener('scroll', handleScroll);
+		};
+	});
 </script>
 
 <main class="min-h-screen" style={`background-color: ${dark_mode['background-primary']}`}>
 	<!-- Navbar -->
-	<nav class="bg-blue-950 shadow">
-		<div class="sticky top-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+	<nav class="sticky top-0 w-full transition-all duration-200 z-10" style={`background-color: ${dark_mode['background-secondary']}`}>
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="flex justify-between h-16">
 				<div class="flex">
 					<!-- Logo -->
@@ -20,19 +32,19 @@
 					<!-- Navigation Links -->
 					<div class="hidden sm:ml-6 sm:flex sm:space-x-8">
 						<a
-							href="/products"
+							href="#"
 							class="inline-flex items-center px-1 text-sm font-medium"
 						>
 							Products
 						</a>
 						<a
-							href="/about"
+							href="#"
 							class="inline-flex items-center px-1 text-sm font-medium"
 						>
 							About
 						</a>
 						<a
-							href="/contact"
+							href="#"
 							class="inline-flex items-center px-1 text-sm font-medium"
 						>
 							Contact
@@ -43,7 +55,7 @@
 
 				<div class="flex items-center">
 					<a
-						href="/account"
+						href="#"
 						class="ml-4 p-2 text-gray-400 hover:text-gray-500"
 						aria-label="Account"
 					>
@@ -65,9 +77,13 @@
 			</div>
 		</div>
 	</nav>
+	<!-- end of navbar -->
 
+	<!-- Children -->
 	{@render children()}
+	<!-- end of children -->
 
+	<!-- Footer -->
 	<footer class="text-white mt-auto w-full" style={`background-color: ${dark_mode['background-secondary']}`}>
 		<div class="container mx-auto p-4">
 			<div class="flex gap-8">
@@ -126,4 +142,5 @@
 			</div>
 		</div>
 	</footer>
+	<!-- end of footer -->
 </main>

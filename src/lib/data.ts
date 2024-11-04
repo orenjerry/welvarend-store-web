@@ -6,3 +6,7 @@ export const products: Product[] = [
 	{ name: 'Product 3', price: 199.99 },
 	{ name: 'Product 4', price: 299.99 },
 ];
+
+export const news = [
+	{ src: '/images/banner.jpg', alt: 'Promo 1' },
+];
