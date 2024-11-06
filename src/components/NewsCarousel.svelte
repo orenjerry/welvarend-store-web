@@ -1,8 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import type { NewsBanner } from "$lib/types";
+  // import '@glidejs/glide/dist/glide.min.js';
+  // import Glide from '@glidejs/glide/dist/glide.esm'
+  import * as Glide from '@glidejs/glide';
+  import '@glidejs/glide/dist/css/glide.core.min.css';
+  import '@glidejs/glide/dist/css/glide.theme.min.css';
+
   onMount(() => {
-    const glide = new Glide(".glide", { // ignore this error
+    const glide = new Glide.default(".glide", {
       type: "carousel",
       autoplay: news.length > 1 ? 3800 : false,
       animationDuration: 500,
@@ -20,18 +26,6 @@
 
   export let news: NewsBanner[] = [];
 </script>
-
-<svelte:head>
-  <script src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
-  <link
-    rel="stylesheet"
-    href="../node_modules/@glidejs/glide/dist/css/glide.core.min.css"
-  />
-  <link
-    rel="stylesheet"
-    href="../node_modules/@glidejs/glide/dist/css/glide.theme.min.css"
-  />
-</svelte:head>
 
 <div class="glide rounded-2xl w-full">
   <div class="glide__track" data-glide-el="track">
