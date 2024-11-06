@@ -5,6 +5,8 @@
 
 	let { children } = $props();
 	let scrollY = $state(0);
+	let isMenuOpen = $state(false);
+
 	onMount(() => {
 		const handleScroll = () => {
 			scrollY = window.scrollY;
@@ -16,7 +18,7 @@
 	});
 </script>
 
-<main class="min-h-screen" style={`background-color: ${dark_mode['background-primary']}`}>
+<main class="min-h-screen w-full" style={`background-color: ${dark_mode['background-primary']}`}>
 	<!-- Navbar -->
 	<nav class="sticky top-0 w-full transition-all duration-200 z-10" style={`background-color: ${dark_mode['background-secondary']}`}>
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -25,38 +27,37 @@
 					<!-- Logo -->
 					<div class="flex-shrink-0 flex items-center">
 						<a href="/">
-							<img src="/images/LogoL.png" alt="Welvarend Store" class="h-[100px] w-auto" />
+							<img src="/images/Logo.png" alt="Welvarend Store" class="h-[50px] sm:hidden w-auto" />
+							<img src="/images/LogoL.png" alt="Welvarend Store" class="hidden sm:block sm:h-[100px] w-auto" />
 						</a>
 					</div>
 
-					<!-- Navigation Links -->
 					<div class="hidden sm:ml-6 sm:flex sm:space-x-8">
 						<a
 							href="#"
 							class="inline-flex items-center px-1 text-sm font-medium"
 						>
-							Products
+							Beranda
 						</a>
 						<a
 							href="#"
 							class="inline-flex items-center px-1 text-sm font-medium"
 						>
-							About
+							Posts
 						</a>
 						<a
 							href="#"
 							class="inline-flex items-center px-1 text-sm font-medium"
 						>
-							Contact
+							Cek Transaksi
 						</a>
 					</div>
 				</div>
 
-
-				<div class="flex items-center">
+				<div class="flex items-center gap-2">
 					<a
 						href="#"
-						class="ml-4 p-2 text-gray-400 hover:text-gray-500"
+						class="p-2 text-gray-400 hover:text-gray-500 transition-colors duration-200"
 						aria-label="Account"
 					>
 						<svg
@@ -73,8 +74,77 @@
 							/>
 						</svg>
 					</a>
+
+					<div class="sm:hidden flex items-center">
+						<button
+							type="button"
+							class="text-gray-400 hover:text-gray-500 transition-colors duration-200"
+							on:click={() => isMenuOpen = !isMenuOpen}
+						>
+							<svg class="h-6 w-6 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path
+									class={`transform transition-opacity duration-200 ${isMenuOpen ? "opacity-0" : "opacity-100"}`}
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M4 6h16M4 12h16M4 18h16"
+								/>
+								<path
+									class={`transform transition-opacity duration-200 absolute ${!isMenuOpen ? "opacity-0" : "opacity-100"}`}
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M6 18L18 6M6 6l12 12"
+								/>
+							</svg>
+						</button>
+					</div>
 				</div>
 			</div>
+
+			<!-- Mobile menu -->
+			{#if isMenuOpen}
+				<div 
+					class="sm:hidden fixed inset-x-0 top-16 z-50 transition-all duration-300 ease-in-out"
+					style={`background-color: ${dark_mode['background-secondary']}`}
+				>
+					<div class="pt-2 pb-3 space-y-1">
+						<a
+							href="#"
+							class="block px-3 py-2 text-base font-medium transition-all duration-300 hover:text-gray-300"
+							style="
+								transform: translateX({isMenuOpen ? '0' : '-100%'});
+								opacity: {isMenuOpen ? '1' : '0'};
+								transition-delay: 100ms;
+							"
+						>
+							Beranda
+						</a>
+						<a
+							href="#"
+							class="block px-3 py-2 text-base font-medium transition-all duration-300 hover:text-gray-300"
+							style="
+								transform: translateX({isMenuOpen ? '0' : '-100%'});
+								opacity: {isMenuOpen ? '1' : '0'};
+								transition-delay: 150ms;
+							"
+						>
+							Posts
+						</a>
+						<a
+							href="#"
+							class="block px-3 py-2 text-base font-medium transition-all duration-300 hover:text-gray-300"
+							style="
+								transform: translateX({isMenuOpen ? '0' : '-100%'});
+								opacity: {isMenuOpen ? '1' : '0'};
+								transition-delay: 200ms;
+							"
+						>
+							Cek Transaksi
+						</a>
+					</div>
+				</div>
+			{/if}
 		</div>
 	</nav>
 	<!-- end of navbar -->
@@ -86,9 +156,13 @@
 	<!-- Footer -->
 	<footer class="text-white mt-auto w-full" style={`background-color: ${dark_mode['background-secondary']}`}>
 		<div class="container mx-auto p-4">
-			<div class="flex gap-8">
-				<div class="flex flex-col items-left">
-					<img src="/images/LogoL.png" alt="Welvarend Store Logo" class="h-[200px] w-auto pr-5" />
+			<div class="flex flex-col lg:flex-row gap-8">
+				<div class="flex flex-col items-center lg:items-start">
+					<img 
+						src="/images/LogoL.png" 
+						alt="Welvarend Store Logo" 
+						class="h-[150px] lg:h-[200px] w-auto lg:pr-5" 
+					/>
 					<div class="flex gap-4 mt-2">
 						<a href="#">
 							<svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24">
@@ -102,7 +176,9 @@
 						</a>
 					</div>
 				</div>
-				<div class="grid grid-cols-4 gap-[110px] pt-10">
+
+				<!-- Grid links -->
+				<div class="grid grid-cols-2 sm:grid-cols-4 gap-8 lg:gap-[110px] pt-5 lg:pt-10">
 					<div>
 						<h3 class="font-bold mb-2">Services</h3>
 						<ul class="space-y-1 text-sm">
@@ -137,7 +213,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="mt-8 text-sm text-start" style={`color: ${dark_mode['text-muted']}`}>
+
+			<div class="mt-8 text-sm text-center" style={`color: ${dark_mode['text-muted']}`}>
 				<p>&copy; 2024 Welvarend Store. All rights reserved.</p>
 			</div>
 		</div>

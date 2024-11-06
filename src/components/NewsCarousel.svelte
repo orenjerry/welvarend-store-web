@@ -1,12 +1,10 @@
 <script lang="ts">
-  import { news as newsData } from "$lib/data";
-  import Glide from "@glidejs/glide";
   import { onMount } from "svelte";
   import type { NewsBanner } from "$lib/types";
   onMount(() => {
-    const glide = new Glide(".glide", {
+    const glide = new Glide(".glide", { // ignore this error
       type: "carousel",
-      autoplay: 3800,
+      autoplay: news.length > 1 ? 3800 : false,
       animationDuration: 500,
       gap: 0,
       perView: 1,
@@ -20,21 +18,22 @@
     };
   });
 
-  export let news: NewsBanner[] = newsData;
+  export let news: NewsBanner[] = [];
 </script>
 
 <svelte:head>
+  <script src="node_modules/@glidejs/glide/dist/glide.min.js"></script>
   <link
     rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.core.min.css"
+    href="../node_modules/@glidejs/glide/dist/css/glide.core.min.css"
   />
   <link
     rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@glidejs/glide/dist/css/glide.theme.min.css"
+    href="../node_modules/@glidejs/glide/dist/css/glide.theme.min.css"
   />
 </svelte:head>
 
-<div class="glide">
+<div class="glide rounded-2xl w-full">
   <div class="glide__track" data-glide-el="track">
     <ul class="glide__slides">
       {#each news as image}
@@ -42,7 +41,7 @@
           <img
             src={image.src}
             alt={image.alt}
-            class="w-full h-[300px] object-cover rounded-2xl"
+            class="w-full h-[200px] sm:h-[300px] object-cover rounded-2xl"
           />
         </li>
       {/each}
