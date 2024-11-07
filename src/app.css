@@ -22,3 +22,7 @@ a {
 a:hover {
     color: #ffffff;
 }
+
+#account-button:hover {
+	cursor: pointer;
+}

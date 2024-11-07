@@ -33,7 +33,7 @@
     </div>
   </div>
   <div
-    class="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+    class="grid grid-cols-2 xs:grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 mt-3 md:mt-0"
   >
     {#each products as product}
       <button
